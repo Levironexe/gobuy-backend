@@ -285,7 +285,7 @@ app.post('/api/auth/google', async (req, res) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/auth/callback`
+        redirectTo: `${process.env.FRONTEND_URL || 'https://gobuy-frontend.vercel.app/'}/auth/callback`
       }
     })
     
@@ -1239,11 +1239,4 @@ app.get('/api/health', (req, res) => {
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`🚀 Backend server running on port ${PORT}`)
-  console.log(`📡 API endpoints available:`)
-  console.log(`   📦 Products: http://localhost:${PORT}/api/posts`)
-  console.log(`   🔐 Auth Register: http://localhost:${PORT}/api/auth/register`)
-  console.log(`   🔑 Auth Login: http://localhost:${PORT}/api/auth/login`)
-  console.log(`   ✨ Magic Link: http://localhost:${PORT}/api/auth/magic-link`)
-  console.log(`   🔍 Google OAuth: http://localhost:${PORT}/api/auth/google`)
-  console.log(`   ❤️ Health Check: http://localhost:${PORT}/api/health`)
 })
