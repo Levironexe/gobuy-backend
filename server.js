@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
@@ -9,6 +9,7 @@ dotenv.config()
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseAdminKey = process.env.SUPABASE_SERVICE_KEY
 const supabaseClientKey = process.env.SUPABASE_ANON_KEY
+const FRONTEND_URL = process.env.FRONTEND_URL
 
 if (!supabaseUrl || !supabaseAdminKey) {
   console.error('Missing required environment variables! Supabase URL or Service Key')
@@ -94,8 +95,8 @@ app.post('/api/posts', async(req, res) => {
 
   // Create the anon client with the user's token for the insert
   const supabaseWithAuth = createClient(
-    process.env.SUPABASE_URL, 
-    process.env.SUPABASE_ANON_KEY,
+    supabaseUrl, 
+    supabaseClientKey,
     {
       global: {
         headers: {
@@ -254,7 +255,7 @@ app.post('/api/auth/magic-link', async (req, res) => {
       email: email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: 'http://localhost:5173/auth/callback'
+        emailRedirectTo: `${FRONTEND_URL}/auth/callback`,
       }
     })
     
