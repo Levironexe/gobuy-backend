@@ -24,7 +24,8 @@ const app = express()
 app.use(cors({
   origin: [
     'https://gobuy-frontend.vercel.app',
-    'localhost:5173'
+    'localhost:5173',
+    'http://localhost:5173',
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
